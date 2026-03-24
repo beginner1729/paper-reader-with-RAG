@@ -1,0 +1,7 @@
+id: paper_flow_creator
+name: Paper Flow Creator
+model: deepseek/deepseek-reasoner
+max_steps: 200
+outputs:
+  - paper_flow_path
+  - diagrams_dir

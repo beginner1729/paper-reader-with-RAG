@@ -1,0 +1,6 @@
+id: paper_reviewer
+name: Paper Reviewer
+model: deepseek/deepseek-reasoner
+max_steps: 200
+outputs:
+  - review_feedback_path

@@ -1,0 +1,8 @@
+id: website_maker
+name: Website Maker
+model: openai/gpt-5.3-codex
+max_steps: 200
+outputs:
+  - website_dir
+  - website_index_path
+  - glossary_path

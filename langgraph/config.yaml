@@ -1,0 +1,63 @@
+provider:
+  DeepSeek:
+    model: deepseek-reasoner
+    api_key_env: DEEPSEEK_API_KEY
+    base_url_env: DEEPSEEK_BASE_URL
+    default_base_url: https://api.deepseek.com
+    options:
+      timeout_ms: 86400000
+  deepseek:
+    model: deepseek-reasoner
+    api_key_env: DEEPSEEK_API_KEY
+    base_url_env: DEEPSEEK_BASE_URL
+    default_base_url: https://api.deepseek.com
+    options:
+      timeout_ms: 86400000
+  openai:
+    model: gpt-4
+    api_key_env: OPENAI_API_KEY
+    base_url_env: OPENAI_BASE_URL
+    options:
+      timeout_ms: 86400000
+  gpt-4:
+    model: gpt-4
+    api_key_env: OPENAI_API_KEY
+    base_url_env: OPENAI_BASE_URL
+    options:
+      timeout_ms: 86400000
+  gpt-5.3-codex:
+    model: gpt-5.3-codex
+    api_key_env: OPENAI_API_KEY
+    base_url_env: OPENAI_BASE_URL
+    options:
+      timeout_ms: 86400000
+
+workflow:
+  paper_explain:
+    id: paper_explain
+    name: Paper Explain
+    version: 1
+    steps:
+      - id: fetch_tex
+        agent: archive_tex_fetcher
+      - id: gather_resources
+        agent: paper_resource_gatherer
+      - id: create_flow
+        agent: paper_flow_creator
+      - id: review_flow
+        agent: paper_reviewer
+      - id: revise_flow
+        agent: paper_flow_creator
+      - id: create_website
+        agent: website_maker
+
+handoff:
+  enabled: true
+  min_total_chars: 15000
+  max_files: 12
+  max_chars_per_file: 8000
+  max_lines_per_file: 250
+
+checkpoint:
+  enabled: true
+  dir: langgraph/.checkpoints

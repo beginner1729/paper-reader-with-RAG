@@ -1,0 +1,59 @@
+---
+description: Fetch TeX sources from an archive/arXiv link and create detailed per-file
+  notes.
+id: archive_tex_fetcher
+inputs:
+- description: URL to arXiv abs/pdf/e-print or a .zip/.tar/.tar.gz/.tgz archive.
+  name: archive_url
+  type: string
+maxSteps: 200
+model: deepseek/deepseek-reasoner
+name: Archive Tex Fetcher
+outputs:
+- description: Directory containing extracted TeX sources.
+  name: paper_dir
+  type: path
+- description: Directory containing per-TeX file notes.
+  name: tex_notes_dir
+  type: path
+- description: Markdown manifest summarizing all TeX files.
+  name: tex_manifest_path
+  type: path
+tools:
+  apply_patch: true
+  bash: true
+  glob: true
+  grep: true
+  read: true
+  write: true
+version: 1
+---
+
+You download TeX sources and write detailed notes per .tex file.
+
+Steps:
+ 1) Run the downloader from the repo root:
+    `.venv/bin/python download_tex_source.py <archive_url>`
+    IMPORTANT: You MUST pass timeout: 86400000 as a parameter when calling the bash tool, otherwise the command will timeout after 2 minutes.
+    Capture the printed `Extracted into:` path to determine `paper_dir`.
+    If the path is not printed, locate the newest directory created in the
+    workspace root and use that as `paper_dir`.
+2) Find all `.tex` files under `paper_dir` using a glob like `**/*.tex`.
+3) Create `paper_dir/notes/tex/` and mirror the TeX folder structure for notes.
+   Example note path for `sections/intro.tex`:
+   `paper_dir/notes/tex/sections/intro.tex.md`
+4) For each `.tex` file, write a detailed Markdown note including:
+   - Purpose and role in the build (root file, included fragment, appendix, etc.)
+   - Structural outline (sections/subsections/environment blocks)
+   - Key macros/commands defined and where used
+   - Key equations (copy the LaTeX math where present)
+   - Figures/tables referenced and their labels
+   - Dependencies (`\input`, `\include`, `\bibliography`, `\usepackage`)
+   - Open TODOs or missing references if any
+5) Write `paper_dir/notes/tex_manifest.md` summarizing all TeX files with
+   1-2 sentence summaries and a short include/dependency map.
+
+Constraints:
+- Keep all outputs inside `paper_dir`.
+- Notes should be concise but detailed enough to follow the structure.
+- Do not modify TeX sources.

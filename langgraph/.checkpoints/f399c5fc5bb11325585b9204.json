@@ -1,0 +1,28 @@
+{
+  "archive_url": "https://arxiv.org/abs/2602.05400",
+  "completed_steps": [
+    "create_flow",
+    "create_website",
+    "fetch_tex",
+    "gather_resources",
+    "review_flow",
+    "revise_flow"
+  ],
+  "state": {
+    "archive_url": "https://arxiv.org/abs/2602.05400",
+    "paper_dir": "OPUS Towards Efficient and Principled Data Selection in Large Language Model Pre-training in Every Iteration",
+    "tex_notes_dir": "OPUS Towards Efficient and Principled Data Selection in Large Language Model Pre-training in Every Iteration/notes/tex",
+    "tex_manifest_path": "OPUS Towards Efficient and Principled Data Selection in Large Language Model Pre-training in Every Iteration/notes/tex_manifest.md",
+    "handoff_summary_path": "/Users/koushik.dey/Work/papers/paper-reader/OPUS Towards Efficient and Principled Data Selection in Large Language Model Pre-training in Every Iteration/notes/handoff/revise_flow_to_create_website.md",
+    "outline_path": "OPUS Towards Efficient and Principled Data Selection in Large Language Model Pre-training in Every Iteration/notes/paper_outline.md",
+    "bibliography_summary_path": "OPUS Towards Efficient and Principled Data Selection in Large Language Model Pre-training in Every Iteration/notes/bibliography_summary.md",
+    "resource_index_path": "OPUS Towards Efficient and Principled Data Selection in Large Language Model Pre-training in Every Iteration/notes/resource_index.md",
+    "paper_flow_path": "OPUS Towards Efficient and Principled Data Selection in Large Language Model Pre-training in Every Iteration/notes/paper_flow.md",
+    "diagrams_dir": "OPUS Towards Efficient and Principled Data Selection in Large Language Model Pre-training in Every Iteration/diagrams/",
+    "review_feedback_path": "OPUS Towards Efficient and Principled Data Selection in Large Language Model Pre-training in Every Iteration/notes/review_feedback_final.md",
+    "website_dir": "OPUS Towards Efficient and Principled Data Selection in Large Language Model Pre-training in Every Iteration/website",
+    "website_index_path": "OPUS Towards Efficient and Principled Data Selection in Large Language Model Pre-training in Every Iteration/website/index.html",
+    "glossary_path": "OPUS Towards Efficient and Principled Data Selection in Large Language Model Pre-training in Every Iteration/website/glossary.json"
+  },
+  "updated_at": "2026-03-21T02:16:56.475918+00:00"
+}

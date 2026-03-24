@@ -1,0 +1,8 @@
+flowchart LR
+    start([Start]) --> fetch[fetch_tex]
+    fetch --> gather[gather_resources]
+    gather --> flow[create_flow]
+    flow --> review[review_flow]
+    review --> revise[revise_flow]
+    revise --> website[create_website]
+    website --> done([End])

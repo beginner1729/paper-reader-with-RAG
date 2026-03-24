@@ -1,0 +1,9 @@
+id: paper_resource_gatherer
+name: Paper Resource Gatherer
+model: deepseek/deepseek-reasoner
+max_steps: 200
+outputs:
+  - paper_dir
+  - outline_path
+  - bibliography_summary_path
+  - resource_index_path

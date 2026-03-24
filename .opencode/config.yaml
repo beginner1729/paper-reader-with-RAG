@@ -1,0 +1,28 @@
+# OpenCode configuration
+# Very high timeouts for providers and tools
+provider:
+  DeepSeek:
+    model: deepseek-reasoner
+    options:
+      timeout: 86400000  # 24 hours
+  deepseek:
+    model: deepseek-reasoner
+    options:
+      timeout: 86400000  # 24 hours
+  openai:
+    model: gpt-4
+    options:
+      timeout: 86400000  # 24 hours
+  gpt-4:
+    model: gpt-4
+    options:
+      timeout: 86400000  # 24 hours
+agent:
+  build:
+    maxSteps: 200
+  plan:
+    maxSteps: 200
+  general:
+    maxSteps: 200
+  explore:
+    maxSteps: 200

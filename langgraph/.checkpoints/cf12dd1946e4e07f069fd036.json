@@ -1,0 +1,24 @@
+{
+  "archive_url": "https://arxiv.org/abs/2503.03592v1",
+  "completed_steps": [
+    "create_flow",
+    "fetch_tex",
+    "gather_resources",
+    "review_flow",
+    "revise_flow"
+  ],
+  "state": {
+    "archive_url": "https://arxiv.org/abs/2503.03592v1",
+    "paper_dir": "English K_Quantization of LLMs Does Not Disproportionately Diminish Multilingual Performance",
+    "tex_notes_dir": "English K_Quantization of LLMs Does Not Disproportionately Diminish Multilingual Performance/notes/tex",
+    "tex_manifest_path": "English K_Quantization of LLMs Does Not Disproportionately Diminish Multilingual Performance/notes/tex_manifest.md",
+    "outline_path": "English K_Quantization of LLMs Does Not Disproportionately Diminish Multilingual Performance/notes/paper_outline.md",
+    "bibliography_summary_path": "English K_Quantization of LLMs Does Not Disproportionately Diminish Multilingual Performance/notes/bibliography_summary.md",
+    "resource_index_path": "English K_Quantization of LLMs Does Not Disproportionately Diminish Multilingual Performance/notes/resource_index.md",
+    "handoff_summary_path": "/Users/koushik.dey/Work/papers/paper-reader/English K_Quantization of LLMs Does Not Disproportionately Diminish Multilingual Performance/notes/handoff/review_flow_to_revise_flow.md",
+    "paper_flow_path": "English K_Quantization of LLMs Does Not Disproportionately Diminish Multilingual Performance/notes/paper_flow.md",
+    "diagrams_dir": "English K_Quantization of LLMs Does Not Disproportionately Diminish Multilingual Performance/diagrams/",
+    "review_feedback_path": "English K_Quantization of LLMs Does Not Disproportionately Diminish Multilingual Performance/notes/review_feedback.md"
+  },
+  "updated_at": "2026-03-24T10:07:11.680244+00:00"
+}

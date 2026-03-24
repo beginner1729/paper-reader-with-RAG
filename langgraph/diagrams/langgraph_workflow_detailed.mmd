@@ -1,0 +1,47 @@
+flowchart TD
+    start([Start]) --> chk{Checkpoint exists for archive_url?}
+
+    chk -->|yes| skip_note[Skip completed steps]
+    chk -->|no| run_note[Run from fetch_tex]
+    skip_note --> fetch
+    run_note --> fetch
+
+    fetch[fetch_tex]
+    gather[gather_resources]
+    flow[create_flow]
+    review[review_flow]
+    revise[revise_flow]
+    website[create_website]
+    finish([End])
+
+    fetch --> save1[(save checkpoint)] --> handoff1{Large context?}
+    handoff1 -->|yes| hs1[generate handoff summary]
+    handoff1 -->|no| no1[no summary]
+    hs1 --> gather
+    no1 --> gather
+
+    gather --> save2[(save checkpoint)] --> handoff2{Large context?}
+    handoff2 -->|yes| hs2[generate handoff summary]
+    handoff2 -->|no| no2[no summary]
+    hs2 --> flow
+    no2 --> flow
+
+    flow --> save3[(save checkpoint)] --> handoff3{Large context?}
+    handoff3 -->|yes| hs3[generate handoff summary]
+    handoff3 -->|no| no3[no summary]
+    hs3 --> review
+    no3 --> review
+
+    review --> save4[(save checkpoint)] --> handoff4{Large context?}
+    handoff4 -->|yes| hs4[generate handoff summary]
+    handoff4 -->|no| no4[no summary]
+    hs4 --> revise
+    no4 --> revise
+
+    revise --> save5[(save checkpoint)] --> handoff5{Large context?}
+    handoff5 -->|yes| hs5[generate handoff summary]
+    handoff5 -->|no| no5[no summary]
+    hs5 --> website
+    no5 --> website
+
+    website --> save6[(save checkpoint)] --> finish

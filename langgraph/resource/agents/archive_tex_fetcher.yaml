@@ -1,0 +1,8 @@
+id: archive_tex_fetcher
+name: Archive Tex Fetcher
+model: deepseek/deepseek-reasoner
+max_steps: 200
+outputs:
+  - paper_dir
+  - tex_notes_dir
+  - tex_manifest_path
