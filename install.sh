@@ -18,7 +18,7 @@ echo -e "${BLUE}╔════════════════════�
 echo -e "${BLUE}║    Paper Reader with RAG — Agent Installer          ║${NC}"
 echo -e "${BLUE}╚══════════════════════════════════════════════════════╝${NC}"
 echo ""
-echo -e "${YELLOW}Installing paper-reader agents (individual + all-in-one) for OpenCode, Claude Code, Codex, and Cursor...${NC}"
+echo -e "${YELLOW}Installing paper-reader agents for OpenCode, Claude Code, Codex, and Cursor...${NC}"
 echo ""
 
 # ── OpenCode ──────────────────────────────────────────
@@ -32,7 +32,6 @@ OCO_AGENTS=(
   paper_reviewer
   website_maker
   paper_explain
-  paper_explain_full
 )
 
 for agent in "${OCO_AGENTS[@]}"; do
@@ -54,7 +53,6 @@ CLAUDE_AGENTS=(
   paper-reviewer
   website-maker
   paper-explain
-  paper-explain-full
 )
 
 for agent in "${CLAUDE_AGENTS[@]}"; do
@@ -75,7 +73,6 @@ CODEX_AGENTS=(
   paper_flow_creator
   paper_reviewer
   website_maker
-  paper_explain_full
 )
 
 for agent in "${CODEX_AGENTS[@]}"; do
@@ -95,7 +92,6 @@ CURSOR_SKILLS=(
   paper-flow-creator
   paper-reviewer
   website-maker
-  paper-explain-full
 )
 
 for skill in "${CURSOR_SKILLS[@]}"; do
@@ -122,18 +118,16 @@ echo ""
 echo "  OpenCode:"
 echo "    opencode run agent archive_tex_fetcher  -- archive_url=\"<URL>\""
 echo "    opencode run agent paper_explain       -- archive_url=\"<URL>\""
-echo "    opencode run agent paper_explain_full  -- archive_url=\"<URL>\"  (all-in-one)"
 echo ""
 echo "  Claude Code:"
 echo "    claude --agent archive-tex-fetcher"
 echo "    claude --agent paper-explain"
-echo "    claude --agent paper-explain-full      (all-in-one)"
 echo ""
 echo "  Codex CLI:"
-echo '    codex exec "Use the paper_explain_full agent: <URL>"'
+echo '    codex exec "Use the paper_explain agent: <URL>"'
 echo ""
 echo "  Cursor:"
-echo "    @paper-explain-full <URL>              (all-in-one)"
+echo "    @paper-explain <URL>"
 echo "    npx tsx ~/.cursor/run_paper_explain.ts \"<URL>\""
 echo ""
 echo -e "${YELLOW}See agents available in the repo README for details.${NC}"
