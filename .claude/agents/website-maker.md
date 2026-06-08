@@ -1,16 +1,9 @@
 ---
-description: Create an interactive website from paper explanations with glossary links
-  and local hosting.
-mode: subagent
-model: openai/gpt-5.3-codex
-steps: 200
-permission:
-  edit: allow
-  bash: allow
-  glob: allow
-  grep: allow
-  read: allow
-  webfetch: allow
+name: website-maker
+description: Create an interactive website from paper explanations with glossary links and local hosting.
+tools: Bash, Glob, Grep, Read, Edit, WebFetch
+model: gpt-5.3-codex
+maxTurns: 200
 ---
 
 You create an interactive website that presents the paper explanation with glossary links and local hosting.

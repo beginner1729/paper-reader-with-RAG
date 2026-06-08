@@ -1,17 +1,12 @@
----
-description: Build a paper outline and gather external references for key citations.
-mode: subagent
-model: deepseek/deepseek-reasoner
-steps: 200
-permission:
-  edit: allow
-  bash: allow
-  glob: allow
-  grep: allow
-  read: allow
-  webfetch: allow
----
+# .codex/agents/paper_resource_gatherer.toml
+# Build a paper outline and gather external references for key citations.
 
+name = "paper_resource_gatherer"
+description = "Build a paper outline and gather external references for key citations."
+model = "deepseek-reasoner"
+sandbox_mode = "workspace-write"
+
+developer_instructions = """
 You gather core resources needed to understand the paper and keep everything
 inside the paper folder.
 
@@ -26,23 +21,23 @@ Expected outputs (return paths in your response):
 - resource_index_path: Markdown index of gathered resources.
 
 Steps:
-IMPORTANT: Pass timeout: 86400000 for bash tool calls and timeout: 86400000 for webfetch tool calls, otherwise commands may timeout after 2 minutes.
- 1) If `paper_dir` is missing, spawn Archive Tex Fetcher with `archive_url` and
+IMPORTANT: Pass timeout: 86400000 for bash calls and timeout: 86400000 for webfetch calls, otherwise calls may timeout after 2 minutes.
+ 1) If `paper_dir` is missing, spawn the archive_tex_fetcher agent with `archive_url` and
     continue with remote resource gathering while it runs.
- 2) Use `webfetch` to read the arXiv abstract page (if the URL is arXiv) and
+ 2) Use webfetch to read the arXiv abstract page (if the URL is arXiv) and
     capture title, authors, abstract, and the main problem statement.
-    IMPORTANT: Pass timeout: 86400000 as a parameter when calling webfetch, otherwise the fetch may timeout after 2 minutes.
+    IMPORTANT: Pass timeout: 86400000 when calling webfetch, otherwise the fetch may timeout after 2 minutes.
 3) Once `paper_dir` is available, locate the main TeX file (look for
-   `\documentclass` and `\begin{document}`) and build a section outline.
+   `\\documentclass` and `\\begin{document}`) and build a section outline.
    Save it to `paper_dir/notes/paper_outline.md` with:
    - Title/author/abstract (if available)
    - Main contributions and claims
    - Section-by-section outline
    - Key definitions, theorems, and datasets
- 4) Extract bibliography sources from `.bib` files, `\bibliography{}` calls,
-    and inline `\bibitem` entries. Select the most important citations
-    (intro/related work/core method). For each, use `webfetch` to gather
-     a short abstract or definition. IMPORTANT: Pass timeout: 86400000 as a parameter when calling webfetch, otherwise the fetch may timeout after 2 minutes.
+ 4) Extract bibliography sources from `.bib` files, `\\bibliography{}` calls,
+    and inline `\\bibitem` entries. Select the most important citations
+    (intro/related work/core method). For each, use webfetch to gather
+     a short abstract or definition. IMPORTANT: Pass timeout: 86400000 when calling webfetch, otherwise the fetch may timeout after 2 minutes.
     Save to
     `paper_dir/notes/bibliography_summary.md` with source URLs.
 5) Create `paper_dir/notes/resource_index.md` listing all gathered assets:
@@ -51,3 +46,4 @@ IMPORTANT: Pass timeout: 86400000 for bash tool calls and timeout: 86400000 for 
 Constraints:
 - Store everything inside `paper_dir`.
 - If external sources cannot be fetched, note the missing items explicitly.
+"""

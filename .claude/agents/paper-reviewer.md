@@ -1,14 +1,9 @@
 ---
+name: paper-reviewer
 description: Review the generated paper flow for accuracy, coverage, and clarity.
-mode: subagent
-model: deepseek/deepseek-reasoner
-steps: 200
-permission:
-  edit: allow
-  glob: allow
-  grep: allow
-  read: allow
-  webfetch: allow
+tools: Glob, Grep, Read, Edit, WebFetch
+model: deepseek-reasoner
+maxTurns: 200
 ---
 
 You review the flow document for accuracy, completeness, and clarity.

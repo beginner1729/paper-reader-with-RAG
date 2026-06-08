@@ -7,6 +7,14 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
+## Quick install
+
+```bash
+curl -sSL https://raw.githubusercontent.com/beginner1729/paper-reader-with-RAG/main/install.sh | bash
+```
+
+Installs all paper-reader agents to OpenCode, Claude Code, Codex CLI, and Cursor.
+
 ## TeX source downloader
 
 `download_tex_source.py` downloads a source archive (or arXiv abs/pdf link) and
@@ -42,23 +50,21 @@ mermaid.ink service.
 - Works with `.mmd` files or Markdown files containing mermaid fenced code blocks.
 - Requires internet access to reach mermaid.ink.
 
-## OpenCode agents and workflow
+## OpenCode agents
 
-Agent definitions live in `.opencode/agents/` and the end-to-end workflow is in
-`.opencode/workflows/paper_explain.md`.
+Agent definitions live in `.opencode/agents/`. The `paper_explain` agent is a
+primary agent that orchestrates all subagents in sequence.
 
-Arguments are passed after `--` as `key=value` pairs (e.g., `archive_url="https://..."`).
-
-### Run the full workflow
+### Run the full pipeline
 
 ```bash
-opencode run workflow paper_explain -- archive_url="<URL>"
+opencode run agent paper_explain -- archive_url="<URL>"
 ```
 
-If your OpenCode CLI expects a file path, use:
+Or with the explicit file path:
 
 ```bash
-opencode run workflow .opencode/workflows/paper_explain.md -- archive_url="<URL>"
+opencode run agent .opencode/agents/paper_explain.md -- archive_url="<URL>"
 ```
 
 Outputs are written inside the paper folder created by `download_tex_source.py`:
@@ -106,6 +112,79 @@ The website includes:
 - Embedded diagrams and mathematical equations
 - Responsive design for mobile and desktop
 - Local hosting capability
+
+## Claude Code
+
+Agent definitions live in `.claude/agents/`. The `paper-explain` agent
+orchestrates all subagents in sequence.
+
+### Run the full pipeline
+
+```bash
+claude --agent paper-explain
+```
+
+Then provide `archive_url` in the conversation:
+```
+Process this paper: https://arxiv.org/abs/2602.05400
+```
+
+Or run it non-interactively:
+```bash
+claude -p "Run the paper explain pipeline for https://arxiv.org/abs/2602.05400" --agent paper-explain
+```
+
+### Run individual subagents
+
+```bash
+claude --agent archive-tex-fetcher     # Fetch TeX sources
+claude --agent paper-resource-gatherer # Build outline and bibliography
+claude --agent paper-flow-creator      # Create paper explanation
+claude --agent paper-reviewer          # Review the flow document
+claude --agent website-maker           # Generate interactive website
+```
+
+## Codex CLI
+
+Agent definitions live in `.codex/agents/*.toml`.
+
+### Run the full pipeline
+
+Codex uses natural-language orchestration rather than declarative pipelines.
+Invoke the pipeline by describing the sequence:
+
+```bash
+codex exec "Download TeX from https://arxiv.org/abs/2602.05400, then gather
+resources, create a paper flow explanation, review it, revise based on
+feedback, and generate an interactive website. Use the archive_tex_fetcher,
+paper_resource_gatherer, paper_flow_creator, paper_reviewer, and website_maker
+agents where appropriate."
+```
+
+### Run individual agents
+
+```bash
+codex exec "Use the archive_tex_fetcher agent to download and analyze
+https://arxiv.org/abs/2602.05400"
+```
+
+## Cursor
+
+Skill definitions live in `.cursor/skills/`. The DAG pipeline is defined in
+`.cursor/paper_explain_dag.json` with a TypeScript runner.
+
+### Run the full pipeline
+
+```bash
+npx tsx .cursor/run_paper_explain.ts "https://arxiv.org/abs/2602.05400"
+```
+
+### Run individual skills
+
+Mention skills by name in any Cursor chat:
+```
+@archive-tex-fetcher Download and analyze https://arxiv.org/abs/2602.05400
+```
 
 ## LangGraph equivalent workflow
 

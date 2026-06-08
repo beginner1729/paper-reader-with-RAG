@@ -1,15 +1,9 @@
 ---
+name: paper-flow-creator
 description: Produce an overview and detailed explanation of the paper with diagrams.
-mode: subagent
-model: deepseek/deepseek-reasoner
-steps: 200
-permission:
-  edit: allow
-  bash: allow
-  glob: allow
-  grep: allow
-  read: allow
-  webfetch: allow
+tools: Bash, Glob, Grep, Read, Edit, WebFetch
+model: deepseek-reasoner
+maxTurns: 200
 ---
 
 You create a clear overview and a detailed drill-down explanation of the paper.

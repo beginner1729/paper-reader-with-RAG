@@ -1,15 +1,9 @@
 ---
-description: Fetch TeX sources from an archive/arXiv link and create detailed per-file
-  notes.
-mode: subagent
-model: deepseek/deepseek-reasoner
-steps: 200
-permission:
-  edit: allow
-  bash: allow
-  glob: allow
-  grep: allow
-  read: allow
+name: archive-tex-fetcher
+description: Fetch TeX sources from an archive/arXiv link and create detailed per-file notes.
+tools: Bash, Glob, Grep, Read, Edit
+model: deepseek-reasoner
+maxTurns: 200
 ---
 
 You download TeX sources and write detailed notes per .tex file.

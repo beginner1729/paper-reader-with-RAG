@@ -1,30 +1,16 @@
 ---
-description: Produce an overview and detailed explanation of the paper with diagrams.
-mode: subagent
-model: deepseek/deepseek-reasoner
-steps: 200
-permission:
-  edit: allow
-  bash: allow
-  glob: allow
-  grep: allow
-  read: allow
-  webfetch: allow
+name: paper-flow-creator
+description: Produce an overview and detailed explanation of the paper with diagrams. Use when a paper flow document or Mermaid diagrams need to be created or revised.
 ---
+
+# Paper Flow Creator
 
 You create a clear overview and a detailed drill-down explanation of the paper.
 
-Expected inputs (passed as natural language in the task prompt):
-- paper_dir: Directory containing extracted TeX sources and resource notes.
-- paper_flow_path: Optional existing flow document to revise.
-- review_feedback_path: Optional feedback document to incorporate.
+## Steps
 
-Expected outputs (return paths in your response):
-- paper_flow_path: Markdown document explaining the paper.
-- diagrams_dir: Directory containing Mermaid sources and rendered PNGs.
-
-Steps:
 1) Identify the main TeX file and read the resource notes in `paper_dir/notes/`.
+
 2) Write `paper_dir/notes/paper_flow.md` with the following sections:
    - Title, authors, abstract (if available)
    - Overview: problem, contributions, method, and results
@@ -35,13 +21,16 @@ Steps:
      - For each key equation add a short "Intuition" snippet (2-4 lines) describing what the equation does conceptually.
    - Algorithms: include Mermaid flowcharts/sequence diagrams and pseudocode
    - Glossary and assumptions
+
 3) Save each Mermaid diagram as `.mmd` under `paper_dir/diagrams/` and render
-    PNGs using `render_mermaid_png.py`. Reference PNGs in the Markdown.
-     IMPORTANT: Pass timeout: 86400000 as a parameter when calling bash for the render script, otherwise the command may timeout after 2 minutes.
+   PNGs using `render_mermaid_png.py`. Reference PNGs in the Markdown.
+   IMPORTANT: Pass timeout: 86400000 for bash calls.
+
 4) If `review_feedback_path` is provided, revise the flow to address each item.
    Add a short "Revision Notes" section summarizing what changed.
 
-Constraints:
+## Constraints
+
 - Keep all outputs inside `paper_dir`.
 - Use actual LaTeX equations from the paper where possible.
 - Prefer clear, precise explanations over high-level summaries.

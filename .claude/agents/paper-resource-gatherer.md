@@ -1,15 +1,9 @@
 ---
+name: paper-resource-gatherer
 description: Build a paper outline and gather external references for key citations.
-mode: subagent
-model: deepseek/deepseek-reasoner
-steps: 200
-permission:
-  edit: allow
-  bash: allow
-  glob: allow
-  grep: allow
-  read: allow
-  webfetch: allow
+tools: Bash, Glob, Grep, Read, Edit, WebFetch, Agent(archive-tex-fetcher)
+model: deepseek-reasoner
+maxTurns: 200
 ---
 
 You gather core resources needed to understand the paper and keep everything
@@ -27,9 +21,9 @@ Expected outputs (return paths in your response):
 
 Steps:
 IMPORTANT: Pass timeout: 86400000 for bash tool calls and timeout: 86400000 for webfetch tool calls, otherwise commands may timeout after 2 minutes.
- 1) If `paper_dir` is missing, spawn Archive Tex Fetcher with `archive_url` and
+ 1) If `paper_dir` is missing, spawn archive-tex-fetcher with `archive_url` and
     continue with remote resource gathering while it runs.
- 2) Use `webfetch` to read the arXiv abstract page (if the URL is arXiv) and
+ 2) Use `WebFetch` to read the arXiv abstract page (if the URL is arXiv) and
     capture title, authors, abstract, and the main problem statement.
     IMPORTANT: Pass timeout: 86400000 as a parameter when calling webfetch, otherwise the fetch may timeout after 2 minutes.
 3) Once `paper_dir` is available, locate the main TeX file (look for
@@ -41,7 +35,7 @@ IMPORTANT: Pass timeout: 86400000 for bash tool calls and timeout: 86400000 for 
    - Key definitions, theorems, and datasets
  4) Extract bibliography sources from `.bib` files, `\bibliography{}` calls,
     and inline `\bibitem` entries. Select the most important citations
-    (intro/related work/core method). For each, use `webfetch` to gather
+    (intro/related work/core method). For each, use `WebFetch` to gather
      a short abstract or definition. IMPORTANT: Pass timeout: 86400000 as a parameter when calling webfetch, otherwise the fetch may timeout after 2 minutes.
     Save to
     `paper_dir/notes/bibliography_summary.md` with source URLs.
