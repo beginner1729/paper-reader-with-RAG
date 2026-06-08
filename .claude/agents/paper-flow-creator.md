@@ -2,7 +2,6 @@
 name: paper-flow-creator
 description: Produce an overview and detailed explanation of the paper with diagrams.
 tools: Bash, Glob, Grep, Read, Edit, WebFetch
-model: deepseek-reasoner
 maxTurns: 200
 ---
 

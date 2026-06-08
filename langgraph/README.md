@@ -56,13 +56,13 @@ pip install -r langgraph/requirements.txt
 ## Run
 
 ```bash
-/Users/koushik.dey/Work/papers/paper-reader/.venv/bin/python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400"
+python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400"
 ```
 
 Optional existing paper directory:
 
 ```bash
-/Users/koushik.dey/Work/papers/paper-reader/.venv/bin/python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --paper-dir "./my-paper-dir"
+python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --paper-dir "./my-paper-dir"
 ```
 
 The runner prints a progress bar and logs per-step status to `workflow_run_current.log` by default.
@@ -77,37 +77,37 @@ Use `--rerun-website-only` to keep prior steps cached and rerun only website gen
 Custom log file:
 
 ```bash
-/Users/koushik.dey/Work/papers/paper-reader/.venv/bin/python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --log-file "logs/paper_workflow.log"
+python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --log-file "logs/paper_workflow.log"
 ```
 
 Disable handoff summaries:
 
 ```bash
-/Users/koushik.dey/Work/papers/paper-reader/.venv/bin/python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --disable-handoff-summary
+python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --disable-handoff-summary
 ```
 
 Set threshold for when summaries are generated:
 
 ```bash
-/Users/koushik.dey/Work/papers/paper-reader/.venv/bin/python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --handoff-min-total-chars 25000
+python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --handoff-min-total-chars 25000
 ```
 
 Disable checkpointing for a run:
 
 ```bash
-/Users/koushik.dey/Work/papers/paper-reader/.venv/bin/python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --disable-checkpoint
+python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --disable-checkpoint
 ```
 
 Reset checkpoint for this archive URL and rerun from scratch:
 
 ```bash
-/Users/koushik.dey/Work/papers/paper-reader/.venv/bin/python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --reset-checkpoint
+python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --reset-checkpoint
 ```
 
 Rerun only website generation for this archive URL:
 
 ```bash
-/Users/koushik.dey/Work/papers/paper-reader/.venv/bin/python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --rerun-website-only
+python langgraph/run_workflow.py "https://arxiv.org/abs/2602.05400" --rerun-website-only
 ```
 
 Website output expectations (from prompts):

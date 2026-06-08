@@ -3,7 +3,6 @@ description: End-to-end pipeline from archive URL to interactive website with pa
   explanation. Orchestrates all subagents in sequence: fetch TeX, gather resources,
   create flow, review, revise, and generate website.
 mode: primary
-model: deepseek/deepseek-reasoner
 steps: 200
 permission:
   edit: allow

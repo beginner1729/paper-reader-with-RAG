@@ -2,7 +2,6 @@
 name: paper-explain
 description: End-to-end pipeline from archive URL to interactive website with paper explanation. Orchestrates all subagents in sequence.
 tools: Agent(archive-tex-fetcher, paper-resource-gatherer, paper-flow-creator, paper-reviewer, website-maker), Bash, Glob, Grep, Read, Edit, WebFetch
-model: deepseek-reasoner
 maxTurns: 200
 ---
 

@@ -3,7 +3,6 @@
 
 name = "website_maker"
 description = "Create an interactive website from paper explanations with glossary links and local hosting."
-model = "gpt-5.3-codex"
 sandbox_mode = "workspace-write"
 
 developer_instructions = """

@@ -2,7 +2,6 @@
 description: Fetch TeX sources from an archive/arXiv link and create detailed per-file
   notes.
 mode: subagent
-model: deepseek/deepseek-reasoner
 steps: 200
 permission:
   edit: allow

@@ -1,7 +1,6 @@
 ---
 description: Build a paper outline and gather external references for key citations.
 mode: subagent
-model: deepseek/deepseek-reasoner
 steps: 200
 permission:
   edit: allow

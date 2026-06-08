@@ -2,7 +2,6 @@
 name: archive-tex-fetcher
 description: Fetch TeX sources from an archive/arXiv link and create detailed per-file notes.
 tools: Bash, Glob, Grep, Read, Edit
-model: deepseek-reasoner
 maxTurns: 200
 ---
 

@@ -3,7 +3,6 @@
 
 name = "paper_flow_creator"
 description = "Produce an overview and detailed explanation of the paper with diagrams."
-model = "deepseek-reasoner"
 sandbox_mode = "workspace-write"
 
 developer_instructions = """

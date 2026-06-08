@@ -2,7 +2,6 @@
 description: Create an interactive website from paper explanations with glossary links
   and local hosting.
 mode: subagent
-model: openai/gpt-5.3-codex
 steps: 200
 permission:
   edit: allow

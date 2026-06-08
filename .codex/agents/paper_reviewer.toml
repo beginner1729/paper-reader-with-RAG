@@ -3,7 +3,6 @@
 
 name = "paper_reviewer"
 description = "Review the generated paper flow for accuracy, coverage, and clarity."
-model = "deepseek-reasoner"
 sandbox_mode = "workspace-write"
 
 developer_instructions = """

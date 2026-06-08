@@ -1,7 +1,6 @@
 ---
 description: Full end-to-end pipeline — downloads TeX sources from arXiv, analyzes them, creates a detailed paper explanation with diagrams, and generates an interactive website. Runs the complete pipeline in a single agent.
 mode: primary
-model: deepseek/deepseek-reasoner
 steps: 300
 permission:
   edit: allow

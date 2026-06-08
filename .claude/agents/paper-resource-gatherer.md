@@ -2,7 +2,6 @@
 name: paper-resource-gatherer
 description: Build a paper outline and gather external references for key citations.
 tools: Bash, Glob, Grep, Read, Edit, WebFetch, Agent(archive-tex-fetcher)
-model: deepseek-reasoner
 maxTurns: 200
 ---
 

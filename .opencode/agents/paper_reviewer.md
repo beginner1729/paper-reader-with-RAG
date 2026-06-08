@@ -1,7 +1,6 @@
 ---
 description: Review the generated paper flow for accuracy, coverage, and clarity.
 mode: subagent
-model: deepseek/deepseek-reasoner
 steps: 200
 permission:
   edit: allow

@@ -1,7 +1,6 @@
 ---
 description: Produce an overview and detailed explanation of the paper with diagrams.
 mode: subagent
-model: deepseek/deepseek-reasoner
 steps: 200
 permission:
   edit: allow

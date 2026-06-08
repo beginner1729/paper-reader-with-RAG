@@ -2,7 +2,6 @@
 name: paper-reviewer
 description: Review the generated paper flow for accuracy, coverage, and clarity.
 tools: Glob, Grep, Read, Edit, WebFetch
-model: deepseek-reasoner
 maxTurns: 200
 ---
 

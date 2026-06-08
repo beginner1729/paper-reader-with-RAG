@@ -1,6 +1,6 @@
 id: paper_flow_creator
 name: Paper Flow Creator
-model: deepseek/deepseek-reasoner
+model: deepseek/deepseek-v4-pro
 max_steps: 200
 outputs:
   - paper_flow_path

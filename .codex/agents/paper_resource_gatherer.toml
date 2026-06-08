@@ -3,7 +3,6 @@
 
 name = "paper_resource_gatherer"
 description = "Build a paper outline and gather external references for key citations."
-model = "deepseek-reasoner"
 sandbox_mode = "workspace-write"
 
 developer_instructions = """

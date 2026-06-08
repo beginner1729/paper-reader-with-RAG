@@ -2,7 +2,6 @@
 name: paper-explain-full
 description: Full end-to-end pipeline — downloads TeX sources from arXiv, analyzes them, creates a detailed paper explanation with diagrams, self-reviews, and generates an interactive website. Single-agent pipeline.
 tools: Bash, Glob, Grep, Read, Edit, WebFetch
-model: deepseek-reasoner
 maxTurns: 300
 ---
 

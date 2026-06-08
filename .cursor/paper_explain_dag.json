@@ -1,11 +1,6 @@
 {
   "title": "Paper Explain Pipeline — Full paper analysis from arXiv URL to interactive website",
   "description": "End-to-end pipeline: fetch TeX sources, gather resources, create flow explanation, review, revise, and generate an interactive website.",
-  "models": {
-    "HIGH": "deepseek-reasoner",
-    "MED": "deepseek-reasoner",
-    "LOW": "gpt-5.3-codex"
-  },
   "tasks": [
     {
       "id": "fetch-tex",

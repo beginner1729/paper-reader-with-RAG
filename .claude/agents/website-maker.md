@@ -2,7 +2,6 @@
 name: website-maker
 description: Create an interactive website from paper explanations with glossary links and local hosting.
 tools: Bash, Glob, Grep, Read, Edit, WebFetch
-model: gpt-5.3-codex
 maxTurns: 200
 ---
 

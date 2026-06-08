@@ -2,7 +2,7 @@ import re
 import sys
 
 tex_file = sys.argv[1]
-with open(tex_file, 'r') as f:
+with open(tex_file, 'r', encoding='utf-8') as f:
     content = f.read()
 
 # Find all sections and subsections

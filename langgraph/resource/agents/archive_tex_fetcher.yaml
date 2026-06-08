@@ -1,6 +1,6 @@
 id: archive_tex_fetcher
 name: Archive Tex Fetcher
-model: deepseek/deepseek-reasoner
+model: deepseek/deepseek-v4-pro
 max_steps: 200
 outputs:
   - paper_dir

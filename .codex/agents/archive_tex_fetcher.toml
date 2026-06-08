@@ -3,7 +3,6 @@
 
 name = "archive_tex_fetcher"
 description = "Fetch TeX sources from an archive/arXiv link and create detailed per-file notes."
-model = "deepseek-reasoner"
 sandbox_mode = "workspace-write"
 
 developer_instructions = """

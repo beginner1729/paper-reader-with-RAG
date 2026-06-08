@@ -1,6 +1,6 @@
 id: paper_reviewer
 name: Paper Reviewer
-model: deepseek/deepseek-reasoner
+model: deepseek/deepseek-v4-pro
 max_steps: 200
 outputs:
   - review_feedback_path
