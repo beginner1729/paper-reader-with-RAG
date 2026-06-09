@@ -36,7 +36,8 @@ OCO_AGENTS=(
 
 for agent in "${OCO_AGENTS[@]}"; do
   echo "  → $agent"
-  curl -sSL "$BASE_URL/.opencode/agents/${agent}.md" -o "$OPECODE_DIR/agents/${agent}.md"
+  rm -f "$OPECODE_DIR/agents/${agent}.md"
+  curl -fsSL "$BASE_URL/.opencode/agents/${agent}.md" -o "$OPECODE_DIR/agents/${agent}.md"
 done
 
 echo -e "${GREEN}  OpenCode: $OPECODE_DIR/agents/{${OCO_AGENTS[*]}}.md${NC}"
@@ -57,7 +58,8 @@ CLAUDE_AGENTS=(
 
 for agent in "${CLAUDE_AGENTS[@]}"; do
   echo "  → $agent"
-  curl -sSL "$BASE_URL/.claude/agents/${agent}.md" -o "$CLAUDE_DIR/agents/${agent}.md"
+  rm -f "$CLAUDE_DIR/agents/${agent}.md"
+  curl -fsSL "$BASE_URL/.claude/agents/${agent}.md" -o "$CLAUDE_DIR/agents/${agent}.md"
 done
 
 echo -e "${GREEN}  Claude Code: $CLAUDE_DIR/agents/{${CLAUDE_AGENTS[*]}}.md${NC}"
@@ -77,7 +79,8 @@ CODEX_AGENTS=(
 
 for agent in "${CODEX_AGENTS[@]}"; do
   echo "  → $agent"
-  curl -sSL "$BASE_URL/.codex/agents/${agent}.toml" -o "$CODEX_DIR/agents/${agent}.toml"
+  rm -f "$CODEX_DIR/agents/${agent}.toml"
+  curl -fsSL "$BASE_URL/.codex/agents/${agent}.toml" -o "$CODEX_DIR/agents/${agent}.toml"
 done
 
 echo -e "${GREEN}  Codex CLI: $CODEX_DIR/agents/{${CODEX_AGENTS[*]}}.toml${NC}"
@@ -97,13 +100,16 @@ CURSOR_SKILLS=(
 for skill in "${CURSOR_SKILLS[@]}"; do
   echo "  → skill: $skill"
   mkdir -p "$CURSOR_DIR/skills/${skill}"
-  curl -sSL "$BASE_URL/.cursor/skills/${skill}/SKILL.md" -o "$CURSOR_DIR/skills/${skill}/SKILL.md"
+  rm -f "$CURSOR_DIR/skills/${skill}/SKILL.md"
+  curl -fsSL "$BASE_URL/.cursor/skills/${skill}/SKILL.md" -o "$CURSOR_DIR/skills/${skill}/SKILL.md"
 done
 
 echo "  → dag: paper_explain_dag.json"
-curl -sSL "$BASE_URL/.cursor/paper_explain_dag.json" -o "$CURSOR_DIR/paper_explain_dag.json"
+rm -f "$CURSOR_DIR/paper_explain_dag.json"
+curl -fsSL "$BASE_URL/.cursor/paper_explain_dag.json" -o "$CURSOR_DIR/paper_explain_dag.json"
 echo "  → runner: run_paper_explain.ts"
-curl -sSL "$BASE_URL/.cursor/run_paper_explain.ts" -o "$CURSOR_DIR/run_paper_explain.ts"
+rm -f "$CURSOR_DIR/run_paper_explain.ts"
+curl -fsSL "$BASE_URL/.cursor/run_paper_explain.ts" -o "$CURSOR_DIR/run_paper_explain.ts"
 
 echo -e "${GREEN}  Cursor: $CURSOR_DIR/skills/ + paper_explain_dag.json + run_paper_explain.ts${NC}"
 

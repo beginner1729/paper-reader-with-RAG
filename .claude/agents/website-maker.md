@@ -109,13 +109,18 @@ IMPORTANT: Pass timeout: 86400000 for bash tool calls and timeout: 86400000 for 
     - Previous/Next section buttons
     - Keep section-wise presentation fixed: maintain one page per major section with stable section navigation.
 
- 9) Validate and test:
-     - Check all links work
-     - Verify glossary terms are properly linked
-     - Verify glossary coverage is high across technical terms in each section
-     - Ensure images load correctly
-     - Ensure LaTeX equations render correctly using KaTeX
-     - Verify each key equation has notation and intuition snippets
+ 9) Validate and test (math equations — thorough check):
+      - **Delimiter balance:** For every `\(` confirm a matching `\)`, for every `\[` confirm a matching `\]`. Scan each HTML file to catch mismatched pairs.
+      - **Truncation check:** Look for incomplete LaTeX — unbalanced `{`/`}` braces, missing closing `}`, `\frac` without both arguments, `\sum`/`\int`/`\prod` without limits or body, any command cut off before its arguments.
+      - **Common escape errors:** Check that `_` inside math is not interpreted as markdown italics, that `\\` is preserved as `\\\\` where needed in HTML, and that `&` is escaped as `&amp;` outside math blocks.
+      - **Source cross-check:** Compare the 5-10 most important equations against the original TeX source. Verify no symbols, subscripts, or superscripts were lost.
+      - **Notation/Intuition completeness:** Verify every Notation and Intuition block is fully present — not truncated mid-sentence. Check all variables in Notation blocks actually appear in the corresponding equation.
+      - **Rendering test:** Flag any equation whose raw LaTeX looks malformed (unbalanced parentheses, missing operators, orphaned braces).
+      - Check all links work
+      - Verify glossary terms are properly linked
+      - Verify glossary coverage is high across technical terms in each section
+      - Ensure images load correctly
+      - Fix every issue found. Record issues found and fixes applied in `paper_dir/website/validation_report.md`.
 
 Constraints:
 - Keep all outputs inside `paper_dir/website/`

@@ -50,7 +50,15 @@ IMPORTANT: Pass timeout: 86400000 for bash and webfetch calls.
 
 9) Generate navigation: table of contents, breadcrumbs, previous/next buttons
 
-10) Validate all links, glossary terms, images, and LaTeX equations
+10) Validate and test (math equations — thorough check):
+    - **Delimiter balance:** For every `\(` confirm a matching `\)`, for every `\[` confirm a matching `\]`. Scan each HTML file to catch mismatched pairs.
+    - **Truncation check:** Look for incomplete LaTeX — unbalanced `{`/`}` braces, missing closing `}`, `\frac` without both arguments, `\sum`/`\int`/`\prod` without limits or body.
+    - **Common escape errors:** Check that `_` inside math is not interpreted as markdown italics, that `\\` is preserved as `\\\\` where needed, and that `&` is escaped as `&amp;` outside math blocks.
+    - **Source cross-check:** Compare the 5-10 most important equations against the original TeX source.
+    - **Notation/Intuition completeness:** Verify every Notation and Intuition block is fully present — not truncated mid-sentence.
+    - **Rendering test:** Flag any equation whose raw LaTeX looks malformed.
+    - Check all links, glossary terms, images.
+    - Fix every issue found. Record issues and fixes in `paper_dir/website/validation_report.md`.
 
 ## Constraints
 

@@ -5,44 +5,38 @@
     {
       "id": "fetch-tex",
       "depends_on": [],
-      "complexity": "HIGH",
       "skill": "archive-tex-fetcher",
       "subtask_prompt": "Download and analyze TeX sources from the provided archive URL. Run `.venv/bin/python download_tex_source.py <archive_url>` from the repo root. Find all .tex files, create detailed per-file notes in paper_dir/notes/tex/, and write tex_manifest.md. Return the paper_dir path."
     },
     {
       "id": "gather-resources",
       "depends_on": ["fetch-tex"],
-      "complexity": "MED",
       "skill": "paper-resource-gatherer",
       "subtask_prompt": "Using the paper_dir from the fetch-tex step, webfetch the arXiv abstract page, build a section outline (paper_dir/notes/paper_outline.md), extract and summarize key bibliography sources (paper_dir/notes/bibliography_summary.md), and create a resource index (paper_dir/notes/resource_index.md). Return the outline_path, bibliography_summary_path, and resource_index_path."
     },
     {
       "id": "create-flow",
       "depends_on": ["gather-resources"],
-      "complexity": "HIGH",
       "skill": "paper-flow-creator",
       "subtask_prompt": "Using the paper_dir from fetch-tex, create paper_dir/notes/paper_flow.md with: overview, mindmap diagram, detailed section walkthrough, math details with notation and intuition, algorithms with Mermaid diagrams, and glossary. Save Mermaid sources as .mmd and render PNGs in paper_dir/diagrams/. Return paper_flow_path and diagrams_dir."
     },
     {
       "id": "review-flow",
       "depends_on": ["create-flow"],
-      "complexity": "MED",
       "skill": "paper-reviewer",
-      "subtask_prompt": "Review paper_dir/notes/paper_flow.md against the main TeX sources in paper_dir. Fact-check claims, equations, and algorithm descriptions. Write detailed, actionable feedback to paper_dir/notes/review_feedback.md with sections: accuracy issues, missing coverage, math/notation corrections, diagram issues, clarity improvements, and an actionable edit list. Return review_feedback_path."
+      "subtask_prompt": "Assess paper_dir/notes/paper_flow.md against the main TeX sources in paper_dir. First do a quick quality scan: if the flow is already solid with no significant issues, write a brief review_feedback.md stating 'No revisions needed' and stop. If issues exist, fact-check claims, equations, and diagrams in detail. Write actionable feedback to paper_dir/notes/review_feedback.md with sections: accuracy issues, missing coverage, math/notation corrections, diagram issues, clarity improvements, and an actionable edit list. Include a severity summary. Return review_feedback_path and whether revisions are needed (yes/no)."
     },
     {
       "id": "revise-flow",
       "depends_on": ["review-flow"],
-      "complexity": "HIGH",
       "skill": "paper-flow-creator",
-      "subtask_prompt": "Using paper_dir, revise paper_flow.md by incorporating all feedback from review_feedback.md. Update the flow document to fix accuracy issues, fill coverage gaps, correct math/notation, fix diagram issues, and improve clarity. Add a 'Revision Notes' section summarizing changes. Return the updated paper_flow_path and diagrams_dir."
+      "subtask_prompt": "Check review_feedback.md from the review-flow step. If it says 'No revisions needed' or has only minor cosmetics, make minor corrections and skip full revision. If substantive issues exist, revise paper_flow.md by incorporating all feedback. Add/update a 'Revision Notes' section. Return the updated paper_flow_path and diagrams_dir."
     },
     {
       "id": "generate-website",
       "depends_on": ["revise-flow"],
-      "complexity": "LOW",
       "skill": "website-maker",
-      "subtask_prompt": "Using paper_dir, paper_flow_path, and diagrams_dir from revise-flow, generate an interactive website in paper_dir/website/. Create HTML pages per section, glossary with tooltips, KaTeX math rendering, responsive CSS, navigation, and a local serve.py script. Return website_dir, website_index_path, and glossary_path."
+      "subtask_prompt": "Using paper_dir, paper_flow_path, and diagrams_dir from revise-flow, generate an interactive website in paper_dir/website/. Create HTML pages per section, glossary with tooltips, KaTeX math rendering, responsive CSS, navigation, and a local serve.py script. Then validate thoroughly: check delimiter balance (\\( vs \\), \\[ vs \\]), look for truncated LaTeX (unbalanced braces, incomplete fractions), cross-check key equations against TeX source, verify Notation/Intuition blocks are complete and not truncated, and flag any malformed LaTeX. Record all issues and fixes in paper_dir/website/validation_report.md. Return website_dir, website_index_path, and glossary_path."
     }
   ]
 }

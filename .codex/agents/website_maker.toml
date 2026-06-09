@@ -69,7 +69,15 @@ IMPORTANT: Pass timeout: 86400000 for bash calls and timeout: 86400000 for webfe
 6) Embed diagrams with captions
 7) Set up local hosting: `serve.py` and `README.md` in the website dir
 8) Generate table of contents, breadcrumbs, previous/next navigation
-9) Validate and test all links, glossary terms, images, and equations
+9) Validate and test (math equations — thorough check):
+     - **Delimiter balance:** For every `\\(` confirm a matching `\\)`, for every `\\[` confirm a matching `\\]`. Scan each HTML file to catch mismatched pairs.
+     - **Truncation check:** Look for incomplete LaTeX — unbalanced `{`/`}` braces, missing closing `}`, `\\frac` without both arguments, `\\sum`/`\\int`/`\\prod` without limits or body, any command cut off before its arguments.
+     - **Common escape errors:** Check that `_` inside math is not interpreted as markdown italics, that `\\\\` is preserved where needed in HTML, and that `&` is escaped as `&amp;` outside math blocks.
+     - **Source cross-check:** Compare the 5-10 most important equations against the original TeX source. Verify no symbols, subscripts, or superscripts were lost.
+     - **Notation/Intuition completeness:** Verify every Notation and Intuition block is fully present — not truncated mid-sentence. Check all variables in Notation blocks actually appear in the corresponding equation.
+     - **Rendering test:** Flag any equation whose raw LaTeX looks malformed (unbalanced parentheses, missing operators, orphaned braces).
+     - Check all links work, verify glossary terms are properly linked, verify glossary coverage is high across technical terms in each section, ensure images load correctly.
+     - Fix every issue found. Record issues found and fixes applied in `paper_dir/website/validation_report.md`.
 
 Constraints:
 - Keep all outputs inside `paper_dir/website/`

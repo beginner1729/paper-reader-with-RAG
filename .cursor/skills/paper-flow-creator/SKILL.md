@@ -26,8 +26,12 @@ You create a clear overview and a detailed drill-down explanation of the paper.
    PNGs using `render_mermaid_png.py`. Reference PNGs in the Markdown.
    IMPORTANT: Pass timeout: 86400000 for bash calls.
 
-4) If `review_feedback_path` is provided, revise the flow to address each item.
-   Add a short "Revision Notes" section summarizing what changed.
+4) If `review_feedback_path` is provided, assess the feedback:
+   - If the feedback indicates no significant issues (e.g. "No revisions needed" or only cosmetic items),
+     make minor corrections and note in "Revision Notes" that minimal changes were made.
+   - If the feedback has substantive issues, revise the flow to address each item fully.
+   - Add/update a "Revision Notes" section summarizing what changed and why.
+   - If no `review_feedback_path` is provided, create the flow from scratch (no Revision Notes needed).
 
 ## Constraints
 

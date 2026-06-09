@@ -24,7 +24,6 @@ const DAG_PATH = resolve(__dirname, "paper_explain_dag.json");
 interface Task {
   id: string;
   depends_on: string[];
-  complexity: "HIGH" | "MED" | "LOW";
   skill: string;
   subtask_prompt: string;
 }
@@ -32,7 +31,6 @@ interface Task {
 interface DagConfig {
   title: string;
   description: string;
-  models: Record<string, string>;
   tasks: Task[];
 }
 
@@ -107,8 +105,9 @@ async function main() {
     console.log(`--- Rank ${rankIndex + 1} (${rank.length} task(s)) ---`);
 
     for (const task of rank) {
+      const state = states.get(task.id)!;
       state.status = "running";
-      console.log(`  [${task.id}] Starting (complexity: ${task.complexity}, model: ${dag.models[task.complexity]})`);
+      console.log(`  [${task.id}] Starting (skill: ${task.skill})`);
 
       const enhancedPrompt = `${task.subtask_prompt}\n\n---\nInput: archive_url=${archiveUrl}`;
 
@@ -116,7 +115,6 @@ async function main() {
 
       // TODO: Replace this placeholder with actual Cursor SDK agent invocation:
       //   const agent = await Agent.create({
-      //     model: { id: dag.models[task.complexity] },
       //     local: { cwd: process.cwd() },
       //   });
       //   const run = await agent.send(enhancedPrompt);
@@ -125,7 +123,6 @@ async function main() {
 
       // Placeholder for demonstration:
       console.log(`  [${task.id}] (Stand-in: would invoke Cursor SDK agent here)`);
-      const state = states.get(task.id)!;
       state.status = "completed";
       state.result = `Placeholder result for ${task.id}`;
       console.log(`  [${task.id}] Completed`);

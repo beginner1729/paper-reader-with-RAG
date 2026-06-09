@@ -52,19 +52,43 @@ For each Mermaid diagram, save as `.mmd` under `paper_dir/diagrams/` and render 
 ```
 Reference PNGs in the flow document.
 
-### Phase 4: Self-Review & Revise
-1. Read `paper_flow.md` and the main TeX sources side by side
-2. Fact-check claims, equations, and algorithm descriptions
-3. Identify missing or weakly explained concepts
-4. Write `paper_dir/notes/review_feedback.md` with:
+### Phase 4: Self-Review & Revise (adaptive)
+
+This phase is an adaptive review-revise loop. You decide how many iterations to run
+based on the quality of the flow document. Aim for high quality but avoid unnecessary
+churn — a clean flow on the first pass may need zero revisions.
+
+**Decision gate — assess quality first:**
+- Read `paper_flow.md` alongside the main TeX sources.
+- Assess the draft: are equations correct? Is coverage thorough? Are diagrams meaningful?
+- If the flow is already solid with no significant issues, skip revisions and proceed
+  directly to Phase 5. Note in `paper_dir/notes/review_feedback.md` that the flow
+  passed initial review with no revisions needed.
+
+**When revisions are needed, run the review-revise loop (up to 3 iterations):**
+
+1. Review the current `paper_flow.md` against the main TeX sources:
+   - Fact-check claims, equations, algorithm descriptions
+   - Identify missing or weakly explained concepts
+   - Check diagram accuracy and relevance
+   - Assess clarity, structure, and notation coverage
+2. Write (or append to) `paper_dir/notes/review_feedback.md` with:
    - Accuracy issues (with file:line evidence)
    - Missing coverage
    - Math/notation corrections
    - Diagram issues
    - Clarity improvements
    - Fact-check table mapping claims to evidence
-5. Revise `paper_flow.md` to address every feedback item
-6. Add a "Revision Notes" section summarizing changes
+3. Revise `paper_flow.md` to address every feedback item
+4. Add/update a "Revision Notes" section summarizing changes for this iteration
+
+**Stopping criteria — stop revising when:**
+- No substantive issues remain in `review_feedback.md`
+- Or after 3 full review-revise cycles (whichever comes first)
+
+**If skipping revision entirely:**
+Write a brief `paper_dir/notes/review_feedback.md` stating the flow passed review
+with no revisions needed, then proceed to Phase 5.
 
 ### Phase 5: Generate Website
 1. Read `paper_flow.md`, `paper_outline.md`, `bibliography_summary.md`, `tex_manifest.md`
@@ -86,7 +110,14 @@ Reference PNGs in the flow document.
 6. Wrap glossary terms as `<span class="glossary-term" data-term="x">term</span>`
 7. Per key equation: add "Notation" and "Intuition" snippets adjacent
 8. Create `serve.py` and `README.md` in the website dir
-9. Validate: check links, glossary coverage, images, KaTeX rendering
+9. **Validate all math equations thoroughly:**
+   - **Delimiter balance:** For every `\(` confirm a matching `\)`, for every `\[` confirm a matching `\]`. Scan each HTML file with a regex to catch mismatched pairs.
+   - **Truncation check:** Look for incomplete LaTeX — unbalanced `{`/`}` braces, missing closing `}`, `\frac` without both arguments, `\sum`/`\int`/`\prod` without limits or body, any command cut off before its arguments.
+   - **Common escape errors:** Check that `_` inside math is not accidentally interpreted as markdown italics, that `\\` is preserved as `\\\\` where needed in HTML, and that `&` is escaped as `&amp;` outside math blocks.
+   - **Source cross-check:** For the 5-10 most important equations, compare the rendered HTML LaTeX against the original TeX source. Verify no symbols, subscripts, or superscripts were lost during conversion.
+   - **Notation/Intuition completeness:** Verify every Notation and Intuition block is fully present — not truncated mid-sentence. Check that all variables listed in Notation blocks actually appear in the corresponding equation.
+   - **Rendering test:** Write a small script or manually walk the HTML to flag any equation whose raw LaTeX looks malformed (unbalanced parentheses, missing operators, orphaned braces).
+   - Fix every issue found before considering the website complete. Record issues found and fixes applied in a `paper_dir/website/validation_report.md`.
 
 ## Final Output
 
