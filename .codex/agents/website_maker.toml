@@ -54,7 +54,18 @@ IMPORTANT: Pass timeout: 86400000 for bash calls and timeout: 86400000 for webfe
        - Download KaTeX distribution from https://github.com/KaTeX/KaTeX/releases and place it in `paper_dir/website/katex/`
        - Add local links to KaTeX assets in `<head>` of each HTML page
        - Configure auto-render to recognize `\\(...\\)` and `\\[...\\]` delimiters
-     - When converting Markdown content to HTML, preserve LaTeX math delimiters exactly as they appear
+      - When converting Markdown content to HTML, preserve LaTeX math delimiters exactly as they appear
+
+      **Equation rendering rules:**
+      - NEVER escape LaTeX backslashes as HTML entities. Keep them as literal backslash characters.
+      - NEVER wrap math delimiters in HTML tags — they must appear as raw text in the HTML source.
+      - When using scripts to generate HTML, output raw strings not escaped strings.
+      - KaTeX configure: use delimiters for inline math (backslash-paren), display math (backslash-bracket), and dollar-dollar pairs. Also add begin/end{equation}, begin/end{align}, begin/end{aligned}.
+      - Set renderMathInElement options: throwOnError: false, strict: false, trust: true.
+      - Add CSS: .katex-display { overflow-x: auto; overflow-y: hidden; } and .katex { font-size: 1.1em; }
+      - Common fixes: every frac command needs two brace groups; every begin needs matching end; dollar-sign delimiters replaced with backslash-paren pairs; underscores must be inside math delimiters.
+      - Post-generation debugging: open HTML in browser, check DevTools Console for KaTeX parse errors. View source and verify every inline-math opener has matching closer. Search for lone backslashes not followed by command chars.
+      - Record all equation issues and fixes in paper_dir/website/validation_report.md.
 
  4) Implement glossary linking:
     - Wrap glossary terms with `<span class="glossary-term" data-term="term_name">term</span>`

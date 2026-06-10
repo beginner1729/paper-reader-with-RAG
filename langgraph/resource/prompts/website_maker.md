@@ -93,7 +93,72 @@ IMPORTANT: Pass timeout: 86400000 for bash tool calls and timeout: 86400000 for 
          </script>
          ```
      - If using a script to generate HTML from Markdown (e.g., generate.py), ensure it preserves LaTeX delimiters and does not wrap glossary terms inside math expressions.
-     - When converting Markdown content to HTML, preserve LaTeX math delimiters `\[ ... \]` and `\( ... \)` exactly as they appear in the Markdown. Do not escape backslashes or replace them with HTML entities.
+      - When converting Markdown content to HTML, preserve LaTeX math delimiters `\[ ... \]` and `\( ... \)` exactly as they appear in the Markdown. Do not escape backslashes or replace them with HTML entities.
+
+ 3.1) Equation rendering — technical requirements for reliable rendering:
+
+     **Absolute rules (follow these or equations WILL break):**
+     - NEVER escape LaTeX backslashes as HTML entities. `\frac` must stay `\frac`, NOT `\frac` or `&#92;frac`.
+     - NEVER wrap math delimiters in HTML tags. `<p>\(x^2\)</p>` is fine; `<span>\(</span>x^2<span>\)</span>` is broken.
+     - ALWAYS use raw string output when generating HTML via scripts. In Python, use triple-quoted strings or `repr()`. In JS, use template literals (backticks) not concatenation.
+     - ALWAYS write math blocks on their own lines for display equations; inline math stays inline.
+
+     **KaTeX configuration script — exact copy-paste:**
+     ```html
+     <link rel="stylesheet" href="katex/katex.min.css">
+     <script defer src="katex/katex.min.js"></script>
+     <script defer src="katex/contrib/auto-render.min.js"></script>
+     <script>
+       document.addEventListener("DOMContentLoaded", function() {
+         renderMathInElement(document.body, {
+           delimiters: [
+             {left: "\\(", right: "\\)", display: false},
+             {left: "\\[", right: "\\]", display: true},
+             {left: "$$", right: "$$", display: true},
+             {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+             {left: "\\begin{align}", right: "\\end{align}", display: true},
+             {left: "\\begin{align*}", right: "\\end{align*}", display: true},
+             {left: "\\begin{aligned}", right: "\\end{aligned}", display: true}
+           ],
+           throwOnError: false,
+           strict: false,
+           trust: true,
+           macros: {
+             "\\R": "\\mathbb{R}",
+             "\\N": "\\mathbb{N}",
+             "\\E": "\\mathbb{E}",
+             "\\indep": "\\perp\\!\\!\\!\\perp"
+           }
+         });
+       });
+     </script>
+     ```
+
+     **CSS for equations — prevents overflow/truncation:**
+     ```css
+     .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.5em 0; }
+     .katex { font-size: 1.1em; }
+     .katex-display > .katex { max-width: 100%; }
+     .katex-html { white-space: normal; }
+     ```
+
+     **Common broken-equation patterns to catch before serving:**
+     | Broken | Fixed |
+     |--------|-------|
+     | `\\frac{1}{2` (missing closing brace) | `\\frac{1}{2}` |
+     | `$x^2$` (dollar delimiters — KaTeX won't see them) | `\\(x^2\\)` |
+     | `\\(...\\)` appearing as literal text (KaTeX failed to render) | Check console for KaTeX parse errors |
+     | `&` inside align environment not escaped | Keep `&` as-is inside math, use `&amp;` outside |
+     | `_` outside math interpreted as markdown italics | Ensure `_` is always inside `\\(...\\)` or `\\[...\\]` |
+     | `\\text{...}` with nested braces | Count braces: `\\text{some \\textit{text}}` needs balanced `{}` |
+     | `\\begin{array}` without `\\end{array}` | Always pair `\\begin`/`\\end` |
+
+     **Post-generation debugging:**
+     1. Open any section HTML directly in a browser and open DevTools Console.
+     2. KaTeX logs parse errors with location hints — grep for "KaTeX" in console output.
+     3. View page source and search for `\(` — every occurrence must have a matching `\)`.
+     4. Search source for single `\` that isn't part of `\\` — lone backslashes before non-command chars break rendering.
+     5. If an equation renders as raw text, the delimiter pattern didn't match — verify exact delimiter string in renderMathInElement config matches what appears in HTML source.
 
  4) Implement glossary linking:
     - In all HTML content, wrap glossary terms with `<span class="glossary-term" data-term="term_name">term</span>`

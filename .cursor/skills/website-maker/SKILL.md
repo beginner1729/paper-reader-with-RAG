@@ -30,6 +30,16 @@ IMPORTANT: Pass timeout: 86400000 for bash and webfetch calls.
    - `css/styles.css`: Custom styling
    - `js/script.js`: Interactive features
    - Include KaTeX for LaTeX math rendering (download locally)
+   - Preserve LaTeX math delimiters exactly as they appear — do NOT escape backslashes as HTML entities
+   - When generating HTML from scripts, use raw strings. NEVER wrap math delimiters in HTML tags.
+
+   **Equation rendering rules:**
+   - NEVER escape LaTeX backslashes as HTML entities. Keep them literal.
+   - KaTeX config: delimiters for inline (backslash-paren), display (backslash-bracket), $$, and begin/end{equation/align/aligned}.
+   - renderMathInElement options: throwOnError: false, strict: false, trust: true.
+   - CSS: .katex-display { overflow-x: auto; overflow-y: hidden; } .katex { font-size: 1.1em; }
+   - Common fixes: every frac needs two brace groups; every begin needs matching end; dollar delimiters replaced with backslash-paren; underscores inside math only.
+   - Post-generation: open HTML in browser, check DevTools Console for KaTeX parse errors. View source — every inline opener must have matching closer. Search for lone backslashes.
 
 4) Implement glossary linking:
    - Wrap glossary terms with `<span class="glossary-term" data-term="term_name">term</span>`
